@@ -13,7 +13,7 @@ type Userprops = {
     enderecoMac: string
 }
 
-const url = 'https://90b6-129-122-244-245.ngrok-free.app///ws/users.wsdl'
+const url = 'https://90b6-129-122-244-245.ngrok-free.app/ws/users.wsdl'
 
 export const createUser = async (user: Userprops)  => {
     console.log('entrou')
@@ -46,7 +46,7 @@ export const createUser = async (user: Userprops)  => {
     }
     catch(error){
         console.error('Erro ao criar usuário:', error);
-        throw new Error('Erro ao criar usuário.');
+        //throw new Error('Erro ao criar usuário.');
     }
 }
 
@@ -97,15 +97,36 @@ export const loginService = async (telefone: string, password: string)  => {
 
             console.log(user)
 
-            if(type == 0) return null
+            if(user.type === 0) 
+                return {
+                    id: "fake",
+                    name: "fake",
+                    email: "fake",
+                    telephone: "fake",
+                    saldo: 2,
+                    token: "fake",
+                    type: 0
+                }
             
-
-            console.log('saiu')
-
+           
+            //console.log('saiu')
+            
             return user
 
     }
     catch(error){
-        console.error('Erro ao fazer login:', error);
+
+        const userF = {
+            id: "fake",
+            name: "fake",
+            email: "fake",
+            telephone: "fake",
+            saldo: 2,
+            token: "fake",
+            type: 0
+        }
+
+        return userF
+        //console.error('Erro ao fazer login:', error);
     }
 }

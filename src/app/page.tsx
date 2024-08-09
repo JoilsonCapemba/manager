@@ -8,7 +8,7 @@ export default function Home() {
       <header className="flex justify-between">
         <Logo />
         <nav className="flex gap-x-11 text-white">
-          <a className="hover:text-[#B4ACF9]" href="Dashboard">Dashboard</a>
+          
         </nav>     
         <ButtonNormal action="Login" title="Fazer login"/>
       </header>

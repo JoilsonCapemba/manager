@@ -1,8 +1,12 @@
+
 import { ButtonNormal } from "@/components/ButtonNormal";
 import { Logo } from "@/components/Logo";
+import { AuthProvider } from "@/context";
 import Image from "next/image";
 
 export default function Dashboard() {
+
+
   return (
     <main className="h-screen p-14 bg-[#2E2938] ">
       <header className="flex justify-between">
