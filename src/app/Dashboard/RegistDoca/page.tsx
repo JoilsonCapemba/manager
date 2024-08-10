@@ -1,16 +1,24 @@
 'use client';
 
-import { useState } from 'react';
-import { HeaderDashnoard } from "@/components/HeaderDashboard";
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';;
 import { addDock } from "@/services/StationsServices"; // Certifique-se de que esta função está importada corretamente
 import { Logo } from '@/components/Logo';
-import Link from 'next/link';
-import { ButtonNormal } from '@/components/ButtonNormal';
+import Link from 'next/link';;
+import { useAuthContext } from '@/context';
 
 export default function RegistDoca() {
   const [dockName, setDockName] = useState(''); // Estado para o nome da doca
   const [dockInfo, setDockInfo] = useState(''); // Estado para a informação adicional da doca
   const [loading, setLoading] = useState(false); // Estado para o botão de loading
+  const { user, logout } = useAuthContext();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!user) {
+      router.push('/Login'); // Redireciona para a página de login se o usuário não estiver logado
+    }
+  }, [user, router]);
 
   const handleAddDock = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,7 +35,7 @@ export default function RegistDoca() {
       // Chamada para adicionar a nova doca. Substitua `1` pelo ID real da estação.
       const success = await addDock(1, newDock);
 
-      if (!success) {
+      if (success) {
         alert('Doca adicionada com sucesso!');
         setDockName(''); // Limpar o campo após sucesso
         setDockInfo(''); // Limpar o campo de info após sucesso
@@ -40,6 +48,11 @@ export default function RegistDoca() {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleLogout = () => {
+    logout(); // Chama a função de logout do contexto
+    router.push('/Login'); // Redireciona para a página de login
   };
 
   return (
@@ -63,7 +76,9 @@ export default function RegistDoca() {
             Ver Docas
           </Link>
         </nav>
-        <ButtonNormal action="Login" title="Sair" />
+        <button onClick={handleLogout} className="bg-[#B4ACF9] rounded-md text-[#2E2938] p-2">
+          Sair
+        </button>
       </header>
       <div className="max-w-[603px] mx-auto mt-[20px]">
         <div className="flex gap-2 mb-[58px]">

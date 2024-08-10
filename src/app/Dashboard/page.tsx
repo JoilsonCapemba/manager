@@ -1,9 +1,27 @@
-import { ButtonNormal } from '@/components/ButtonNormal';
+'use client';
+
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { Logo } from '@/components/Logo';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useAuthContext } from '@/context';
 
 export default function Dashboard() {
+  const { user, logout } = useAuthContext();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!user) {
+      router.push('/Login'); // Redireciona para a página de login se o usuário não estiver logado
+    }
+  }, [user, router]);
+
+  const handleLogout = () => {
+    logout(); // Chama a função de logout do contexto
+    router.push('/Login'); // Redireciona para a página de login
+  };
+
   return (
     <main className="h-screen p-14 bg-[#2E2938]">
       <header className="flex justify-between">
@@ -25,7 +43,9 @@ export default function Dashboard() {
             Ver Docas
           </Link>
         </nav>
-        <ButtonNormal action="Login" title="Sair" />
+        <button onClick={handleLogout} className="bg-[#B4ACF9] rounded-md text-[#2E2938] p-2">
+          Sair
+        </button>
       </header>
 
       <section className="flex justify-between items-center flex-col md:flex-row">

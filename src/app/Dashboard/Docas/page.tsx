@@ -1,17 +1,23 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { HeaderDashnoard } from "@/components/HeaderDashboard";
-import { Task } from "@/components/Task";
+import { useRouter } from 'next/navigation';
 import { getStation } from "@/services/StationsServices";
-import Link from 'next/link';
-import { ButtonNormal } from '@/components/ButtonNormal';
+import Link from 'next/link';;
 import { Logo } from '@/components/Logo';
+import { useAuthContext } from '@/context';
 
 export default function Docas() {
   const [stationDetails, setStationDetails] = useState<any>(null);
+  const { user, logout } = useAuthContext();
+  const router = useRouter();
 
   useEffect(() => {
+    if (!user) {
+      router.push('/Login'); // Redireciona para a página de login se o usuário não estiver logado
+      return;
+    }
+
     const fetchStationDetails = async () => {
       const stationName = "Kilamba"; // Substitua pelo nome real da estação
       const details = await getStation(stationName);
@@ -19,7 +25,12 @@ export default function Docas() {
     };
 
     fetchStationDetails();
-  }, []);
+  }, [user, router]);
+
+  const handleLogout = () => {
+    logout(); // Chama a função de logout do contexto
+    router.push('/Login'); // Redireciona para a página de login
+  };
 
   return (
     <main className="h-screen bg-[#2E2938] p-14 text-white">
@@ -42,7 +53,9 @@ export default function Docas() {
             Ver Docas
           </Link>
         </nav>
-        <ButtonNormal action="Login" title="Sair" />
+        <button onClick={handleLogout} className="bg-[#B4ACF9] rounded-md text-[#2E2938] p-2">
+          Sair
+        </button>
       </header>
       <div className="max-w-[1004px] flex flex-col mx-auto gap-3 mt-[82px]">
 

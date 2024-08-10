@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useState, useContext, ReactNode, useEffect } from 'react';
+import { createContext, useState, useContext, ReactNode } from 'react';
 
 interface AuthProviderContextType {
   user: string;
@@ -11,6 +11,7 @@ interface AuthProviderContextType {
   setEmail: React.Dispatch<React.SetStateAction<string>>;
   saldo: string;
   setSaldo: React.Dispatch<React.SetStateAction<string>>;
+  logout: () => void; // Função de logout
 }
 
 const Context = createContext<AuthProviderContextType | undefined>(undefined);
@@ -25,25 +26,16 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const [email, setEmail] = useState<string>('');
   const [saldo, setSaldo] = useState<string>('');
 
-  // Persistência dos dados no localStorage (opcional)
-  useEffect(() => {
-    const storedData = localStorage.getItem('user');
-    if (storedData) {
-      const { user, email, telephone } = JSON.parse(storedData);
-      setUser(user);
-      setEmail(email);
-      setTelephone(telephone);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (user) {
-      localStorage.setItem('user', JSON.stringify({ user, email, telephone }));
-    }
-  }, [user, email, telephone]);
+  const logout = () => {
+    setUser('');
+    setTelephone('');
+    setEmail('');
+    setSaldo('');
+    localStorage.removeItem('user'); // Limpa o armazenamento local
+  };
 
   return (
-    <Context.Provider value={{ user, setUser, telephone, setTelephone, email, setEmail, saldo, setSaldo }}>
+    <Context.Provider value={{ user, setUser, telephone, setTelephone, email, setEmail, saldo, setSaldo, logout }}>
       {children}
     </Context.Provider>
   );

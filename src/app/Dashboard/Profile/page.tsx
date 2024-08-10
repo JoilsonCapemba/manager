@@ -1,5 +1,7 @@
 'use client';
 
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { ButtonNormal } from "@/components/ButtonNormal";
 import { HeaderTask } from "@/components/HeaderTask";
 import { useAuthContext } from "@/context";
@@ -7,12 +9,21 @@ import Image from "next/image";
 
 export default function Profile() {
   const { user, email, telephone } = useAuthContext();
+  const router = useRouter();
 
-  console.log('Dados no perfil:', user, email, telephone); // Verifique se os dados estão presentes aqui
+  // Verificação de autenticação
+  useEffect(() => {
+    if (!user) {
+      router.push('/Login'); // Redireciona para a página de login se não estiver logado
+    }
+  }, [user, router]);
+
+  const handleBackToDashboard = () => {
+    router.push('/Dashboard');
+  };
 
   return (
     <main className="bg-[#2E2938] text-white">
-
       <div className="max-w-[611px] mx-auto mt-24">
         <HeaderTask title="Meu Perfil" description="Minhas informações"/>
 
@@ -34,7 +45,9 @@ export default function Profile() {
             <p className="text-xs">Telefone</p>
             <p className="mb-3">{telephone || "Telefone não disponível"}</p>
             <p>
-              <ButtonNormal action="../Dashboard" title="Voltar"/>
+              <button onClick={handleBackToDashboard} className="bg-[#B4ACF9] rounded-md text-[#2E2938] p-2">
+                Voltar
+              </button>
             </p>
           </div>
         </div>
