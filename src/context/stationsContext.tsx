@@ -1,3 +1,5 @@
+'use client';
+
 import {createContext, useState} from 'react'
 
 interface StationAuthProviderContextType {
@@ -9,9 +11,9 @@ interface StationAuthProviderContextType {
 const StationsContext = createContext<StationAuthProviderContextType | undefined>(undefined);
 
 function StationsAuthProvider({children}: any){
-    const [serviceName, setServiceName] = useState<string>('')
-    const [serviceUrl, setServiceUrl] = useState<string>('')
-    const [id, setId] = useState<string>('')
+    // const [serviceName, setServiceName] = useState<string>('')
+    // const [serviceUrl, setServiceUrl] = useState<string>('')
+    // const [id, setId] = useState<string>('')
 
     const [stations, setStations] = useState<[]>([])
     

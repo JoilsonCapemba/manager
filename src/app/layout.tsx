@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Asap } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/context";
+import { StationsAuthProvider } from "@/context/stationsContext";
 
 const asap = Asap({ subsets: ["latin"] });
 
@@ -18,7 +19,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <AuthProvider>
-        <body className={asap.className}>{children}</body>
+        <StationsAuthProvider>
+          <body className={asap.className}>{children}</body>
+        </StationsAuthProvider>
       </AuthProvider>
     </html>
   );

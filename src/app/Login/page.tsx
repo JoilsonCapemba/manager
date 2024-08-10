@@ -19,7 +19,7 @@ export default function Login() {
     try {
       const login = await loginService(telefone, senha);
       console.log('Resposta do login:', login);
-      if (login) {
+      if (login && login.type === 2) {
         setUser(login.name);
         setTelephone(login.telephone);
         setEmail(login.email);

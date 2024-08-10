@@ -76,7 +76,7 @@ export default  function CreateAccount(){
         <input className="h-[60px] bg-[#363041] rounded-md mb-6 pl-4 text-xs text-white" onChange={(n) => settelefone(n.target.value)} type="number"  placeholder="please insert your password adress"/>
         
 
-        <button onClick={hundlecreateAccount} className="h-[60px] bg-[#B4ACF9] rounded-md text-[#2E2938]">crar conta</button>
+        <button onClick={hundlecreateAccount} className="h-[60px] bg-[#B4ACF9] rounded-md text-[#2E2938]">criar conta</button>
       </form>
     </main>
   )

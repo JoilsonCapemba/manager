@@ -12,7 +12,7 @@ type Userprops = {
     enderecoMac: string
 }
 
-const url = 'https://03d1-102-214-36-238.ngrok-free.app/ws/users.wsdl'
+const url = 'http://192.168.43.142:8080/ws/users.wsdl'
 
 export const createUser = async (user: Userprops) => {
     console.log('entrou servico')
@@ -49,7 +49,7 @@ export const createUser = async (user: Userprops) => {
         return jsonRes;
     } catch (error) {
         console.error('Erro ao criar usuário:', error);
-        throw new Error('Erro ao criar usuário.');
+        // throw new Error('Erro ao criar usuário.');
     }
 }
 

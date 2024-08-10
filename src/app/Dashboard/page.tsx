@@ -1,6 +1,7 @@
-import { ButtonNormal } from "@/components/ButtonNormal";
-import { Logo } from "@/components/Logo";
-import Image from "next/image";
+import { ButtonNormal } from '@/components/ButtonNormal';
+import { Logo } from '@/components/Logo';
+import Image from 'next/image';
+import Link from 'next/link';
 
 export default function Dashboard() {
   return (
@@ -8,11 +9,21 @@ export default function Dashboard() {
       <header className="flex justify-between">
         <Logo />
         <nav className="flex gap-x-11 text-white">
-          <a className="hover:text-[#B4ACF9]" href="Dashboard/RegistDoca">Add Doca</a>
-          <a className="hover:text-[#B4ACF9]" href="Dashboard">Dashboard</a>
-          <a className="hover:text-[#B4ACF9]" href="Dashboard/Estacao">Estação</a>
-          <a className="hover:text-[#B4ACF9]" href="Dashboard/Profile">Perfil</a>
-          <a className="hover:text-[#B4ACF9]" href="Dashboard/Docas">Ver Docas</a>
+          <Link href="/Dashboard/RegistDoca" className="hover:text-[#B4ACF9]">
+            Add Doca
+          </Link>
+          <Link href="/Dashboard" className="hover:text-[#B4ACF9]">
+            Dashboard
+          </Link>
+          <Link href="/Dashboard/Estacao" className="hover:text-[#B4ACF9]">
+            Estação
+          </Link>
+          <Link href="/Dashboard/Profile" className="hover:text-[#B4ACF9]">
+            Perfil
+          </Link>
+          <Link href="/Dashboard/Docas" className="hover:text-[#B4ACF9]">
+            Ver Docas
+          </Link>
         </nav>
         <ButtonNormal action="Login" title="Sair" />
       </header>
